@@ -1,15 +1,13 @@
 library(shiny)
+library(fpp3)
+data("tourism")
 
 ui <- fluidPage(
-  textInput("text", label = h3("Please Enter your name"), value = "Last name, First name"),
-  
-  hr(),
-  fluidRow(column(3, verbatimTextOutput("value")))
-  
+  plotOutput("plot")
 )
 
 server <- function(input, output, session) {
-  output$value <- renderPrint({ input$text })
+  output$plot <- renderPlot({autoplot(filter(tourism, Region == "Adelaide"))})
 }
 
 shinyApp(ui, server)
